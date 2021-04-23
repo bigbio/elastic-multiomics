@@ -11,13 +11,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.SearchScrollHits;
 import org.springframework.data.elasticsearch.core.query.Criteria;
 import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -47,8 +50,10 @@ public class SpectrumService {
     }
 
     public List<ElasticSpectrum> findByPepSequence(String pepSequence, Tuple<Integer, Integer> pageParams) {
-        PageRequest pageRequest = PageRequest.of(pageParams.getKey(), pageParams.getValue(), Sort.by(Sort.Direction.ASC, Constants.USI_KEYWORD));
-        CriteriaQuery query = new CriteriaQuery(new Criteria("pepSequence").expression(pepSequence)).setPageable(pageRequest);
+        PageRequest pageRequest = PageRequest.of(pageParams.getKey(), pageParams.getValue(),
+                Sort.by(Sort.Direction.ASC, Constants.USI_KEYWORD));
+        CriteriaQuery query = new CriteriaQuery(new Criteria("pepSequence")
+                .expression(pepSequence)).setPageable(pageRequest);
         return getSpectrums(query);
     }
 
@@ -59,15 +64,18 @@ public class SpectrumService {
 
     public List<ElasticSpectrum> findByQuery(CriteriaQuery query, Tuple<Integer, Integer> pageParams) {
         if (pageParams != null) {
-            PageRequest pageRequest = PageRequest.of(pageParams.getKey(), pageParams.getValue(), Sort.by(Sort.Direction.ASC, Constants.USI_KEYWORD));
+            PageRequest pageRequest = PageRequest.of(pageParams.getKey(), pageParams.getValue(),
+                    Sort.by(Sort.Direction.ASC, Constants.USI_KEYWORD));
             query = query.setPageable(pageRequest);
         }
         return getSpectrums(query);
     }
 
     private List<ElasticSpectrum> getSpectrums(CriteriaQuery query) {
-        SearchHits<ElasticSpectrum> searches = elasticsearchRestTemplate.search(query, ElasticSpectrum.class, Constants.INDEX_COORDINATES);
-        List<ElasticSpectrum> elasticSpectrums = searches.stream().map(SearchHit::getContent).collect(Collectors.toList());
+        SearchHits<ElasticSpectrum> searches = elasticsearchRestTemplate.search(query, ElasticSpectrum.class,
+                Constants.INDEX_COORDINATES);
+        List<ElasticSpectrum> elasticSpectrums = searches.stream()
+                .map(SearchHit::getContent).collect(Collectors.toList());
         return elasticSpectrums;
     }
 

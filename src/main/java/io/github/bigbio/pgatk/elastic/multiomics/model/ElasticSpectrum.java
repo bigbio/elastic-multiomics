@@ -1,7 +1,9 @@
 package io.github.bigbio.pgatk.elastic.multiomics.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.github.bigbio.pgatk.io.pride.AccessionLocalization;
 import io.github.bigbio.pgatk.io.pride.CvParam;
+import io.github.bigbio.pgatk.io.pride.GeneCoordinates;
 import io.github.bigbio.pgatk.io.pride.IdentifiedModification;
 import io.github.bigbio.pgatk.io.utils.Tuple;
 import lombok.Builder;
@@ -58,6 +60,22 @@ public class ElasticSpectrum {
      */
     @Field(name = "geneAccessions", store = true)
     private Set<String> geneAccessions;
+
+    /**
+     * Protein localization including:
+     *  - Accession of the protein
+     *  - start: start in the sequence 1-based
+     *  - end: end in the sequence (start + length (peptideSequence))
+     */
+    @Field( name = "proteinLocalizations", store = true, type = FieldType.Nested, includeInParent = true)
+    private Set<AccessionLocalization> proteinLocalizations;
+
+    /**
+     * Gene Coordinates are more complex than Protein localizations, it contains, Transcript position, Gene
+     * positions and exon information.
+     */
+    @Field( name = "geneLocalizations", store = true, type = FieldType.Nested, includeInParent = true)
+    private Set<GeneCoordinates> geneLocalizations;
 
     /**
      * The organism where the peptide has been found/identified. In PRIDE some peptides are associated to more than one
@@ -134,6 +152,12 @@ public class ElasticSpectrum {
     Double retentionTime;
 
     /**
+     * Spectrum retention time.
+     */
+    @Field( name = "msLevel", store = true)
+    int msLevel;
+
+    /**
      * Number of missclevages for the peptide, this is related with the cleavage agent used to generate the peptide
      */
     @Field( name = "missedCleavages", store = true)
@@ -144,8 +168,8 @@ public class ElasticSpectrum {
      * probabilities, or p-values.
      *
      */
-    @Field(name = "qualityEstimationMethods", store = true, type = FieldType.Nested, includeInParent = true)
-    private Set<CvParam> qualityEstimationMethods;
+    @Field(name = "qualityScores", store = true, type = FieldType.Nested, includeInParent = true)
+    private Set<CvParam> qualityScores;
 
     /**
      * A list of String values that to characterize the MS information, example:
@@ -158,8 +182,20 @@ public class ElasticSpectrum {
     /**
      * A list of ProteomeXchange projects that has been used to generate the following peptide.
      */
-    @Field( name = "pxProjects", store = true)
-    private List<String> pxProjects;
+    @Field( name = "pxAccession", store = true)
+    private String pxAccession;
+
+    /**
+     * A list of ProteomeXchange projects that has been used to generate the following peptide.
+     */
+    @Field( name = "isDecoy", store = true)
+    private Boolean isDecoy;
+
+    /**
+     * Raw peptide intensity in the sample
+     */
+    @Field(name = "peptideIntensity", store = true)
+    private Double peptideIntensity;
 
     /**
      * A general Text that contains all the information of all Text in fields for general search.
