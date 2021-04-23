@@ -1,0 +1,18 @@
+elasticsearch:
+  host_url: wp-p2m-30.ebi.ac.uk:9200,wp-p2m-31.ebi.ac.uk:9200,wp-p2m-32.ebi.ac.uk:9200
+  path: spectradocument
+
+spring:
+  data:
+    elasticsearch:
+      cluster-name: spectradocument
+      cluster-nodes: wp-p2m-30.ebi.ac.uk:9200, wp-p2m-31.ebi.ac.uk:9200, wp-p2m-32.ebi.ac.uk:9200
+  main:
+    web-application-type=NONE:
+rest:
+  timeout:
+    millis:
+      connection: 60000
+      read: 60000
+
+batchCommit: 10
