@@ -85,6 +85,12 @@ public class ElasticSpectrum {
     private String organism;
 
     /**
+     * Sample accession for peptide
+     */
+    @Field( name = "sampleAccession", store = true, type = FieldType.Keyword)
+    String sampleAccession;
+
+    /**
      * Sample information from SDRF, the sample information a a list of key value pairs from samples, for example:
      *  - organism:homo sapiens
      *  - organism part: brain
