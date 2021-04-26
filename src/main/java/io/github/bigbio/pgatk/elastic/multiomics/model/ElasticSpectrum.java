@@ -99,7 +99,7 @@ public class ElasticSpectrum {
      *  - variant
      */
     @Field(name = "biologicalAnnotations", store = true)
-    Set<String> biologicalAnnotations;
+    List<Tuple<String, String>> biologicalAnnotations;
 
     // Information about the Mass spectrometry (Spectrum)
 
@@ -177,7 +177,7 @@ public class ElasticSpectrum {
      * - Orbitrap LTQ
      */
     @Field( name = "msAnnotations", store = true)
-    Set<CvParam> msAnnotations;
+    List<Tuple<String, String>> msAnnotations;
 
     /**
      * A list of ProteomeXchange projects that has been used to generate the following peptide.
