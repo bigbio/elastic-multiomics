@@ -1,10 +1,7 @@
 package io.github.bigbio.pgatk.elastic.multiomics.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import io.github.bigbio.pgatk.io.pride.AccessionLocalization;
-import io.github.bigbio.pgatk.io.pride.CvParam;
-import io.github.bigbio.pgatk.io.pride.GeneCoordinates;
-import io.github.bigbio.pgatk.io.pride.IdentifiedModification;
+import io.github.bigbio.pgatk.io.pride.*;
 import io.github.bigbio.pgatk.io.utils.Tuple;
 import lombok.Builder;
 import lombok.Data;
@@ -53,13 +50,13 @@ public class ElasticSpectrum {
      * Protein accessions. A {@link Set} of protein accessions from Uniprot, ENSEMBL, or other major databases.
      */
     @Field( name = "proteinAccessions", store = true)
-    private Set<String> proteinAccessions;
+    private List<String> proteinAccessions;
 
     /**
      * Gene related accessions, including: Transcript, Exon Accessions from multiple databases.
      */
     @Field(name = "geneAccessions", store = true)
-    private Set<String> geneAccessions;
+    private List<String> geneAccessions;
 
     /**
      * Protein localization including:
@@ -68,14 +65,14 @@ public class ElasticSpectrum {
      *  - end: end in the sequence (start + length (peptideSequence))
      */
     @Field( name = "proteinLocalizations", store = true, type = FieldType.Nested, includeInParent = true)
-    private Set<AccessionLocalization> proteinLocalizations;
+    private List<AccessionLocalization> proteinLocalizations;
 
     /**
      * Gene Coordinates are more complex than Protein localizations, it contains, Transcript position, Gene
      * positions and exon information.
      */
     @Field( name = "geneLocalizations", store = true, type = FieldType.Nested, includeInParent = true)
-    private Set<GeneCoordinates> geneLocalizations;
+    private List<GeneCoordinates> geneLocalizations;
 
     /**
      * The organism where the peptide has been found/identified. In PRIDE some peptides are associated to more than one
@@ -96,7 +93,7 @@ public class ElasticSpectrum {
      *  - organism part: brain
      */
     @Field( name = "sample", store = true, type = FieldType.Nested, includeInParent = true)
-    private List<Tuple<String, String>> sample;
+    private List<AvroTuple> sample;
 
     /**
      * Additional biological annotations for the peptide as keywords, for example:
@@ -105,7 +102,7 @@ public class ElasticSpectrum {
      *  - variant
      */
     @Field(name = "biologicalAnnotations", store = true)
-    List<Tuple<String, String>> biologicalAnnotations;
+    List<AvroTuple> biologicalAnnotations;
 
     // Information about the Mass spectrometry (Spectrum)
 
@@ -125,19 +122,19 @@ public class ElasticSpectrum {
      * Structure of Post-translational modifications as position+name-modification+score of the quality of PTM.
      */
     @Field( name = "modifications", store = true, type = FieldType.Nested, includeInParent = true)
-    private List<IdentifiedModification> modifications;
+    private List<AvroModification> modifications;
 
     /**
      * The modification names, a Set of modification Strings for better searching.
      */
     @Field( name = "modificationNames", store = true)
-    private Set<String> modificationNames;
+    private List<String> modificationNames;
 
     /**
      * The modification accessions.
      */
     @Field( name = "modificationAccessions", store = true)
-    private Set<String> modificationAccessions;
+    private List<String> modificationAccessions;
 
     /**
      * Spectrum masses, a list of doubles where each value correspond to a peak mass value.
@@ -175,7 +172,7 @@ public class ElasticSpectrum {
      *
      */
     @Field(name = "qualityScores", store = true, type = FieldType.Nested, includeInParent = true)
-    private Set<CvParam> qualityScores;
+    private List<AvroTerm> qualityScores;
 
     /**
      * A list of String values that to characterize the MS information, example:
@@ -183,7 +180,7 @@ public class ElasticSpectrum {
      * - Orbitrap LTQ
      */
     @Field( name = "msAnnotations", store = true)
-    List<Tuple<String, String>> msAnnotations;
+    List<AvroTuple> msAnnotations;
 
     /**
      * A list of ProteomeXchange projects that has been used to generate the following peptide.
