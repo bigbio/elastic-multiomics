@@ -1,4 +1,4 @@
-package io.github.bigbio.pgatk.elastic.multiomics.config;
+package io.github.bigbio.elastic.multiomics.config;
 
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
@@ -12,8 +12,8 @@ import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "io.github.bigbio.pgatk.elastic.multiomics.repository")
-@ComponentScan(basePackages = "io.github.bigbio.pgatk.elastic.multiomics.service")
+@EnableElasticsearchRepositories(basePackages = "io.github.bigbio.elastic.multiomics.repository")
+@ComponentScan(basePackages = "io.github.bigbio.elastic.multiomics.service")
 public class ElasticSearchConfig {
 
     @Value("${elasticsearch.host_url}")

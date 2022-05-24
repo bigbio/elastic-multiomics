@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.github.bigbio.pgatk</groupId>
+    <groupId>io.github.bigbio</groupId>
     <artifactId>elastic-multiomics</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
@@ -36,12 +36,6 @@
     <dependencies>
 
         <dependency>
-            <groupId>io.github.bigbio.pgatk</groupId>
-            <artifactId>pgatk-io</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
             <version>${spring-boot.version}</version>
@@ -62,6 +56,12 @@
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
             <version>${elastic.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -94,11 +94,11 @@
     <repositories>
         <repository>
             <id>nexus-ebi-release-repo</id>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
         </repository>
         <repository>
             <id>nexus-ebi-snapshot-repo</id>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
+            <url>https://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
         </repository>
         <repository>
             <id>sonatype-release</id>
@@ -110,7 +110,7 @@
         </repository>
         <repository>
             <id>spring-maven-snapshot</id>
-            <url>http://repo.spring.io/libs-snapshot</url>
+            <url>https://repo.spring.io/libs-snapshot</url>
         </repository>
     </repositories>
 
@@ -128,8 +128,8 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:https://github.com/bigbio/spectra-indexer.git</connection>
-        <developerConnection>scm:git:https://github.com/bigbio/spectra-indexer.git</developerConnection>
+        <connection>scm:git:https://github.com/bigbio/elastic-multiomics.git</connection>
+        <developerConnection>scm:git:https://github.com/bigbio/elastic-multiomics.git</developerConnection>
         <url>https://github.com/bigbio/elastic-multiomics.git</url>
         <tag>HEAD</tag>
     </scm>

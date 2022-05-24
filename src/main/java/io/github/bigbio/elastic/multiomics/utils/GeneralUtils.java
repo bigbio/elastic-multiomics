@@ -1,4 +1,4 @@
-package io.github.bigbio.pgatk.elastic.multiomics.utils;
+package io.github.bigbio.elastic.multiomics.utils;
 
 public class GeneralUtils {
 

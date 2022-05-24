@@ -1,7 +1,7 @@
-package io.github.bigbio.pgatk.elastic.multiomics.utils;
+package io.github.bigbio.elastic.multiomics.utils;
 
 
-import io.github.bigbio.pgatk.io.utils.Tuple;
+import io.github.bigbio.elastic.multiomics.model.Tuple;
 
 public class WsUtils {
 

@@ -1,6 +1,6 @@
-package io.github.bigbio.pgatk.elastic.multiomics.model;
+package io.github.bigbio.elastic.multiomics.model;
 
-import io.github.bigbio.pgatk.elastic.multiomics.utils.Constants;
+import io.github.bigbio.elastic.multiomics.utils.Constants;
 
 public enum PtmKey {
 
